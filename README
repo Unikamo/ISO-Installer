@@ -1,0 +1,8 @@
+# ISO-Installer
+Install .iso files directly from source
+
+Informations:
+
+Program will only work to install x86_64 versions of distributions, don't expect it to work at all,
+and please, for the sake of security, don't use it.
+
