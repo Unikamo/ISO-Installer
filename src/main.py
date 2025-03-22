@@ -119,8 +119,18 @@ if code == menu.OK and tags:
 		
 		file_name = f"{distro}-{chosen_flavor}"
 		install_file(choice, file_name)
+		menu.msgbox(f"{distro}-{chosen_flavor} installed successfully!")
 	else:
-		menu.msgbox(f"You have chosen : {tags}")
+		menu.msgbox(f"You have chosen : {distro}")
+		chosen_distro = distro[0]
+		choice = distro_mirror[distro]
+		menu.msgbox(f"You have chosen : {distro}")
+		menu.msgbox(f"Installing {distro}...")
+		menu.msgbox(choice)
+		file_name = distro
+		install_file(choice, file_name)
+		menu.msgbox(f"{distro} installed successfully!")
+
 else:
 		menu.msgbox("You have not chosen any distribution.")
 
