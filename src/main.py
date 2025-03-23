@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # encoding: utf-8
 
 import requests as req
@@ -95,6 +96,7 @@ locale.setlocale(locale.LC_ALL, '')
 menu = Dialog(dialog="dialog", autowidgetsize=True)
 
 menu.set_background_title("ISO-Installer")
+
 
 code, tags = menu.checklist("Select with <space>",
 			    choices = [(distro, "", False) for distro in distro_mirror],

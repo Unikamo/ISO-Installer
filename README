@@ -6,3 +6,9 @@ Informations:
 Program will only work to install x86_64 versions of distributions, don't expect it to work at all,
 and please, for the sake of security, don't use it.
 
+Files :
+
+	dialogrc : Change background/foreground color of the `dialog` program (here, the background is set as black,
+		and the foreground as white)
+	main.py : The main file
+	Makefile : Duh

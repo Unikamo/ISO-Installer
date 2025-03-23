@@ -1,0 +1,2 @@
+use_colors = ON
+screen_color = (WHITE, BLACK, ON) 
