@@ -33,14 +33,14 @@ distro_mirror = {
 	"puppy": "https://distro.ibiblio.org/puppylinux/puppy-bookwormpup/BookwormPup64/10.0.10/BookwormPup64_10.0.10.iso",
 	"elementary": "https://fra1.dl.elementary.io/download/MTc0MjY2MTg4Nw==/elementaryos-8.0-stable.20250314rc.iso",
 	"qubes": "https://mirrors.edge.kernel.org/qubes/iso/Qubes-R4.2.4-x86_64.iso",
-	"cent": "https://mirrors.centos.org/mirrorlist?path=/10-stream/BaseOS/x86_64/iso/CentOS-Stream-10-latest-x86_64-dvd1.iso&redirect=1&protocol=https",
+	"centos": "https://mirrors.centos.org/mirrorlist?path=/10-stream/BaseOS/x86_64/iso/CentOS-Stream-10-latest-x86_64-dvd1.iso&redirect=1&protocol=https",
 	"nix": {
 		"gnome": "https://channels.nixos.org/nixos-24.11/latest-nixos-gnome-x86_64-linux.iso",
 		"plasma": "https://channels.nixos.org/nixos-24.11/latest-nixos-plasma6-x86_64-linux.iso",
 		"minimal": "https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-x86_64-linux.iso"
 	},
 	"openbsd": "https://cdn.openbsd.org/pub/OpenBSD/7.6/amd64/install76.img",
-	"pop": {
+	"popos": {
 		"nvidia": "https://iso.pop-os.org/22.04/amd64/nvidia/51/pop-os_22.04_amd64_nvidia_51.iso",
 		"amd/intel": "https://iso.pop-os.org/22.04/amd64/intel/51/pop-os_22.04_amd64_intel_51.iso"
 	},
@@ -79,15 +79,31 @@ distro_mirror = {
 		"xubuntu": "https://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/24.04/release/xubuntu-24.04.2-desktop-amd64.iso",
 		"server": "https://ubuntu.com/download/server/thank-you?version=24.04.2&architecture=amd64&lts=true"
 	},
-	"garuda": "https://iso.builds.garudalinux.org/iso/latest/garuda/mokka/latest.iso?r2=1"
+	"garuda": "https://iso.builds.garudalinux.org/iso/latest/garuda/mokka/latest.iso?r2=1",
+	"templeos": "https://templeos.org/Downloads/TempleOS.ISO",
+	"ubuntu4.10": "https://old-releases.ubuntu.com/releases/4.10/warty-release-install-amd64.iso", # Oddly specific
+	"source_codes": {
+		"linux6.13.8": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.8.tar.xz",
+		"gcc": "https://github.com/gcc-mirror/gcc/archive/refs/heads/master.zip"
+	}
 }
 
 def install_file(url, destination):
 	with req.get(url, stream=True) as response:
 		response.raise_for_status()
-		with open(f"{destination}.iso", "wb") as file:
-			for chunk in response.iter_content(chunk_size=8192):
-				file.write(chunk)
+		
+		if "gcc" in url:
+			with open(f"{destination}.zip", "wb") as file:
+				for chunk in response.iter_content(chunk_size=8192):
+					file.write(chunk)
+		elif "linux" in url:
+			with open(f"{destination}.tar.xz", "wb") as file:
+				for chunk in response.iter_content(chunk_size=8192):
+					file.write(chunk)
+		else:
+			with open(f"{destination}.iso", "wb") as file:
+				for chunk in response.iter_content(chunk_size=8192):
+					file.write(chunk)
 
 distro_mirror = dict(sorted(distro_mirror.items()))
 
